@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: identity-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql : true
+  datasource:
+    username: root
+    password: Bat@123456
+    url: jdbc:mysql://localhost:3306/suntan
+    
+
+keystore:
+  password: mySecretKey
+  
+logging:
+ level:
+   org.springframework.security: DEBUG
+
