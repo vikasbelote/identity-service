@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	
     	http.formLogin().loginPage("/login").permitAll()
     	.and().requestMatchers().antMatchers("/login", "/oauth/authorize","/oauth/confirm_access", "/health")
-    	.and().authorizeRequests().antMatchers("/register").permitAll().anyRequest().authenticated();
+    	.and().authorizeRequests().antMatchers("register").permitAll().anyRequest().authenticated();
     }
  
     @Override
@@ -58,6 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/assets/**");
+		web.ignoring().antMatchers("/assets/**", "/register");
 	}
 }
