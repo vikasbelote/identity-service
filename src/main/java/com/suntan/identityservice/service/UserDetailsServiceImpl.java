@@ -3,6 +3,7 @@ package com.suntan.identityservice.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +19,7 @@ import com.suntan.identityservice.model.UserModel;
 import com.suntan.identityservice.repository.UserRepository;
 
 @Service("userDetailsServiceImpl")
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService  {
 	
 	@Autowired
@@ -29,6 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserModel userModel = userRepository.findByUserName(username);
+		log.info("usermodel:"+userModel);
 		Assert.notNull(userModel, "User Model is empty");
 		return new User(userModel.getUserName(), userModel.getUserPassword(), this.getUserAuthority(userModel));
 	}
