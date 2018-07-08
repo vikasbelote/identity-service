@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -59,6 +61,7 @@ public class PersonModel implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "person", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<InvestmentModel> investmentDetails;
 }
