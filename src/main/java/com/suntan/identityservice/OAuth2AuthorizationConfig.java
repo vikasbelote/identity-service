@@ -58,7 +58,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient("SampleClientId").secret("{bcrypt}$2a$10$6Lt/ZB8./O9cKfWkPW6NneKjxonPwCMDY/o1N5Wp7ivYNTldozO0K")
-				.authorizedGrantTypes("authorization_code", "refresh_token","password","client_credentials").scopes("All").autoApprove(true).autoApprove("All")
+				.authorizedGrantTypes("authorization_code", "refresh_token","password","client_credentials", "implicit").scopes("All").autoApprove(true)
 				.accessTokenValiditySeconds(60);
 	}
 }

@@ -3,12 +3,17 @@ package com.suntan.identityservice.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -19,6 +24,7 @@ import com.suntan.identityservice.model.PersonModel;
 import com.suntan.identityservice.model.UserModel;
 import com.suntan.identityservice.service.UserDetailsServiceImpl;
 
+@CrossOrigin(origins = "*")
 @Controller
 @SessionAttributes("authorizationRequest")
 public class OAuthLoginController {
@@ -68,5 +74,19 @@ public class OAuthLoginController {
 		}
 		return "redirect:/login";
 	}
-	
+
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
+    public String logoutDo(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session= request.getSession(false);
+        SecurityContextHolder.clearContext();
+        session= request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+        for(Cookie cookie : request.getCookies()) {
+            cookie.setMaxAge(0);
+        }
+
+        return "logout";
+    }
 }
